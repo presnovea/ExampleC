@@ -98,6 +98,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PointDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
@@ -140,9 +141,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
@@ -76,28 +77,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Customer.cs">
-      <DependentUpon>PointDB.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Model\DatabaseContext.cs" />
     <Compile Include="Model\Model.cs" />
-    <Compile Include="Model\Order.cs">
-      <DependentUpon>PointDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\PointDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PointDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\PointDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PointDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\PointDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PointDB.edmx</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
@@ -125,13 +106,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Model\PointDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PointDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Model\PointDB.edmx.diagram">
-      <DependentUpon>PointDB.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -144,18 +118,6 @@
   <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Model\PointDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PointDB.edmx</DependentUpon>
-      <LastGenOutput>PointDB.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\PointDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PointDB.edmx</DependentUpon>
-      <LastGenOutput>PointDB.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

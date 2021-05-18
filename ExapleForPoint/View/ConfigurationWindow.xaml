@@ -1,12 +1,56 @@
-﻿<Window x:Class="ExapleForPoint.View.ConfigurationWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExapleForPoint.View"
+        xmlns:Modelling="clr-namespace:ExapleForPoint.Modelling" xmlns:ViewModel="clr-namespace:ExapleForPoint.ViewModel" x:Class="ExapleForPoint.View.ConfigurationWindow"
         mc:Ignorable="d"
-        Title="Конфигуратор" Height="371.405" Width="554.76">
+        Title="Конфигуратор" Height="387.602" Width="378.544">
+    <Window.DataContext>
+        <ViewModel:CreatorViewModel/>
+    </Window.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="149*"/>
+            <RowDefinition Height="216*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox x:Name="groupBox" Header="База данных" Height="167" Margin="10,6.667,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Width="166">
+            <Grid Margin="-6" DataContext="{Binding DBaseParams}" >
+                <TextBox x:Name="AddrTextBox" Text="{Binding DataSource}" HorizontalAlignment="Left" Height="23" Margin="10,30,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="146"/>
+                <TextBox x:Name="PortTextBox" Text="{Binding Port}" HorizontalAlignment="Left" Height="23" Margin="10,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146"/>
+                <TextBox x:Name="DataBaseTextBox" Text="{Binding DbName}" HorizontalAlignment="Left" Height="23" Margin="10,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146"/>
+                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,14,0,0" TextWrapping="Wrap" Text="Адрес" VerticalAlignment="Top" Width="120"/>
+                <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" Text="Порт" VerticalAlignment="Top" Width="120"/>
+                <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="10,102,0,0" TextWrapping="Wrap" Text="Наименование БД" VerticalAlignment="Top" Width="120"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox_Copy" Header="Аутентификация" Height="123" Margin="10,6.667,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="166" >
+            <Grid Margin="-6" DataContext="{Binding DBaseParams}">
+                <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,14,0,0" TextWrapping="Wrap" Text="Логин" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="LoginTextBox" Text="{Binding UserID}" HorizontalAlignment="Left" Height="23" Margin="10,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146"/>
+                <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top" Width="120"/>
+                <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Height="23" Width="146"/>
+            </Grid>
+        </GroupBox>
+        <Button x:Name="button" Command="{Binding}" Content="Подключиться" Grid.Column="1" HorizontalAlignment="Left" Margin="10,145.667,0,0" Width="166" Height="21" VerticalAlignment="Top" Grid.Row="1"/>
+        <Slider x:Name="CustomerSldr" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" Width="352" Height="18" Maximum="20" Minimum="10" SmallChange="1"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="10,22,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Height="16" Width="13"/>
+        <TextBlock x:Name="textBlock2_Copy" HorizontalAlignment="Left" Margin="163,22,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Grid.Column="1" TextAlignment="Right" Height="16" Width="13"/>
+        <TextBlock x:Name="CustomerTb" HorizontalAlignment="Left" Margin="180,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="12" Height="16"/>
+        <TextBlock x:Name="textBlock2_Copy1" HorizontalAlignment="Left" Margin="71,22,0,0" TextWrapping="Wrap" Text="Клиенты" VerticalAlignment="Top" Width="72" Height="16"/>
+        <Slider x:Name="OrderSldr" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" Width="352" Height="18" Minimum="1000" Maximum="10000" SmallChange="1"/>
+        <TextBlock x:Name="textBlock2_Copy2" HorizontalAlignment="Left" Margin="10,66,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="47" Height="16"/>
+        <TextBlock x:Name="textBlock2_Copy3" HorizontalAlignment="Left" Margin="118,66,0,0" TextWrapping="Wrap" Text="10000" VerticalAlignment="Top" Grid.Column="1" TextAlignment="Right" Width="58" Height="16"/>
+        <TextBlock x:Name="OrderTb" HorizontalAlignment="Left" Margin="180,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="12" Height="16"/>
+        <TextBlock x:Name="textBlock2_Copy4" HorizontalAlignment="Left" Margin="71,66,0,0" TextWrapping="Wrap" Text="Заказы" VerticalAlignment="Top" Width="72" Height="16"/>
+        <Button x:Name="FillDbButton" Content="Заполнить" Grid.Column="1" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Width="166" Height="21"/>
+        <ProgressBar x:Name="ProcessBar" HorizontalAlignment="Left" Height="23" Margin="10,179,0,0" Grid.Row="1" VerticalAlignment="Top" Width="352" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="ProcessTb" HorizontalAlignment="Left" Margin="17,182,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="15" Width="75"/>
 
     </Grid>
 </Window>

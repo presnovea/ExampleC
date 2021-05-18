@@ -79,7 +79,8 @@
     </Compile>
     <Compile Include="Model\DatabaseContext.cs" />
     <Compile Include="Model\Model.cs" />
-    <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="ViewModel\CreatorViewModel.cs" />
+    <Compile Include="ViewModel\ObserverViewModel.cs" />
     <Compile Include="View\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>

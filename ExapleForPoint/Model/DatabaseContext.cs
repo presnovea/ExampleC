@@ -37,16 +37,38 @@ namespace ExapleForPoint.Modelling
     }
 
     /// <summary>
-    /// Контекст БД
+    /// EF Контекст БД
     /// </summary>
     public class PointExampleContext : DbContext
     {
-        public PointExampleContext() : base(Util.EFConnectionString())
+        PointExampleContext(DbParams dbParams) : base(DataBaseWorker.EFConnectionString(dbParams))
         { }
         //"name=PointDbString"
 
         public DbSet<Customers> customers { get; set; }
         public DbSet<Orders> orders { get; set; }
+
+        /// <summary>
+        /// Метод, осуществляющий выборку заказов по ID клиента
+        /// </summary>
+        /// <param name="customerID">ID клиента</param>
+        /// <returns></returns>
+        public List<Orders> GetOrdersByCustomer (decimal customerID)
+        {
+            List<Orders> orderByCust = new List<Orders>();
+
+            var queryRes =
+                from num in orders
+                where num.CustomerID == customerID
+                select num;
+            foreach (var num in queryRes)
+            {
+                orderByCust.Add(num);
+            }
+
+            return orderByCust;
+        }
+
     }
 
    

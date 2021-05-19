@@ -15,16 +15,17 @@ namespace ExapleForPoint.ViewModel
 {
     class CreatorViewModel : INotifyPropertyChanged
     {
+        //--------Объявление свойств и событий----------
         private DbParams dbParams;
-        private decimal customerValue = 10, orderValue = 1000;
+        private int customerValue = 10, orderValue = 1000;
         private bool isSldrEnabled;
 
         private DataBaseWorker dbWorker;
-        private PointExampleContext exampleContext;
+        internal  PointExampleContext exampleContext;
+        private DataBaseFiller dbFiller;
 
 
 
-        //--------Объявления свойств и событий----------
         public IDelegateCommand ConfigureDBCommand { protected set; get; }
         public IDelegateCommand FillDBCommand { protected set; get; }
 
@@ -64,13 +65,13 @@ namespace ExapleForPoint.ViewModel
                 dbParams.Password = value;
             }
         }
-    public decimal CustomerValue
+    public int CustomerValue
         {
             get { return (int)customerValue; }
             set { customerValue = value;
                 OnPropertyChanged("CustomerValue"); }
         }
-        public decimal OrderValue
+        public int OrderValue
         {
             get { return (int)orderValue; }
             set
@@ -148,6 +149,10 @@ namespace ExapleForPoint.ViewModel
         /// </summary>
         private void ExecuteFillDB(object param)
         {
+            dbFiller = new DataBaseFiller(exampleContext);
+            dbFiller.SetCustomers(CustomerValue);
+            dbFiller.SetOders(CustomerValue, OrderValue);
+            ObserverViewModel.exampleContext = exampleContext;
             OnPropertyChanged("ConnectionEnabled");
         }
 
@@ -157,7 +162,7 @@ namespace ExapleForPoint.ViewModel
         /// </summary>
         private bool CanExecuteFillDB(object param)
         {
-                return false;
+                return true;
         }
 
     }    

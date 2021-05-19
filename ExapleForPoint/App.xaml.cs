@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+using ExapleForPoint.Modelling;
+
 namespace ExapleForPoint
 {
     /// <summary>
@@ -13,5 +15,6 @@ namespace ExapleForPoint
     /// </summary>
     public partial class App : Application
     {
+        public static PointExampleContext MainExampleContext;
     }
 }

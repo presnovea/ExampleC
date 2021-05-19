@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExapleForPoint.View"
-        xmlns:Modelling="clr-namespace:ExapleForPoint.Modelling" xmlns:ViewModel="clr-namespace:ExapleForPoint.ViewModel" x:Class="ExapleForPoint.View.ConfigurationWindow"
+        xmlns:Modelling="clr-namespace:ExapleForPoint.Modelling" 
+        xmlns:ViewModel="clr-namespace:ExapleForPoint.ViewModel" 
+        x:Class="ExapleForPoint.View.ConfigurationWindow"
         mc:Ignorable="d"
         Title="Конфигуратор" Height="387.602" Width="378.544">
     <Window.DataContext>
@@ -48,7 +50,7 @@
         <TextBlock x:Name="textBlock2_Copy3" HorizontalAlignment="Left" Margin="117.667,66,0,0" TextWrapping="Wrap" Text="10000" VerticalAlignment="Top" Grid.Column="1" TextAlignment="Right" Width="58" Height="16"/>
         <TextBlock x:Name="OrderTb" Text="{Binding OrderValue}" HorizontalAlignment="Left" Margin="146,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="80" Height="16" TextAlignment="Center"/>
         <TextBlock x:Name="textBlock2_Copy4" HorizontalAlignment="Left" Margin="71,66,0,0" TextWrapping="Wrap" Text="Заказы" VerticalAlignment="Top" Width="72" Height="16"/>
-        <Button x:Name="FillDbButton" IsEnabled="{Binding ConnectionEnabled}" Content="Заполнить" Grid.Column="1" HorizontalAlignment="Left" Margin="9.667,116,0,0" VerticalAlignment="Top" Width="166" Height="21"/>
+        <Button x:Name="FillDbButton" IsEnabled="{Binding ConnectionEnabled}" Command="{Binding FillDBCommand}" Content="Заполнить" Grid.Column="1" HorizontalAlignment="Left" Margin="9.667,116,0,0" VerticalAlignment="Top" Width="166" Height="21"/>
         <ProgressBar x:Name="ProcessBar" HorizontalAlignment="Left" Height="23" Margin="10,178.667,0,0" Grid.Row="1" VerticalAlignment="Top" Width="352" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="ProcessTb" HorizontalAlignment="Left" Margin="17,181.667,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="15" Width="75"/>
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Data;
 using System.Data.Entity;
@@ -7,6 +8,7 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using System.Security;
 
 namespace ExapleForPoint.Modelling
@@ -59,12 +61,13 @@ namespace ExapleForPoint.Modelling
         public PointExampleContext ConfigDb(DbParams context)
         {
             try { exampleContext = new PointExampleContext(context);
+
+                exampleContext.SaveChanges();
                 return exampleContext;
             }
             catch (Exception ex)
             { throw ex; }
         }
-
 
         /// <summary>
         /// Метод генерации строки подключения
@@ -93,9 +96,13 @@ namespace ExapleForPoint.Modelling
         private List<string> MaleFirstName, MaleMiddleName, MaleLastName,
             FemaleFirstName, FemaleMiddleName, FemaleLastName, Sex;
 
+        private PointExampleContext exampleContext;
 
-        public DataBaseFiller()
+
+        public DataBaseFiller(PointExampleContext x)
         {
+            exampleContext = x;
+
             MaleFirstName = new List<string> {
             "Иван", "Петр", "Семён", "Евгений", "Алексей",
             "Владимир","Олег", "Сергей","Тимур","Азбек"};
@@ -125,9 +132,8 @@ namespace ExapleForPoint.Modelling
         /// </summary>
         /// <param name="list">Лист, из которого осуществляется выборка</param>
         /// <returns></returns>
-        private string GetRandomListValue (List<string> list)
+        private string GetRandomListValue (List<string> list, Random random)
         {
-            Random random = new Random();
             int index = random.Next(list.Count);
 
             return list[index];
@@ -138,9 +144,8 @@ namespace ExapleForPoint.Modelling
         /// </summary>
         /// <param name="dt">Дата начала вычисления ранддомной даты</param>
         /// <returns></returns>
-        internal DateTime GetRandomDt(DateTime dt)
+        private DateTime GetRandomDt(DateTime dt, Random random)
         {
-            Random random = new Random();
             DateTime newDt = new DateTime();
             int dateRange = (DateTime.Today - dt).Days;
 
@@ -153,37 +158,43 @@ namespace ExapleForPoint.Modelling
         /// </summary>
         /// <param name="customersCount">Количество клиентов</param>
         /// <returns></returns>
-        internal List<Customers> SetCustomers (int customersCount)
+        public void SetCustomers (int customersCount)
         {
             Random rnd = new Random();
-            List<Customers> custList = new List<Customers>(customersCount);
+            Customers cust;
+            List<Customers> customers =  new List<Customers>();
             DateTime birthDate = new DateTime(1950, 1, 1);
             DateTime regDate = new DateTime(2015, 1, 1);
 
-            int i = 0;
-            foreach (var cust in custList)
+            for (int i = 0; i < customersCount; i++)
             {
+                ;
+                cust = new Customers();
+
                 cust.ID = i;
-                int j = rnd.Next(1);
-                if (Convert.ToBoolean(j))
+                int j = rnd.Next(2);
+                if (!Convert.ToBoolean(j))
                 {
-                    cust.LastName = GetRandomListValue(MaleLastName);
-                    cust.FirstName = GetRandomListValue(MaleFirstName);
-                    cust.MiddleName = GetRandomListValue(MaleMiddleName);
+                    cust.LastName = GetRandomListValue(MaleLastName, rnd);
+                    cust.FirstName = GetRandomListValue(MaleFirstName, rnd);
+                    cust.MiddleName = GetRandomListValue(MaleMiddleName, rnd);
                     cust.Sex = Sex[j];
                 }
                 else
                 {
-                    cust.LastName = GetRandomListValue(FemaleLastName);
-                    cust.FirstName = GetRandomListValue(FemaleFirstName);
-                    cust.MiddleName = GetRandomListValue(FemaleMiddleName);
+                    cust.LastName = GetRandomListValue(FemaleLastName, rnd);
+                    cust.FirstName = GetRandomListValue(FemaleFirstName, rnd);
+                    cust.MiddleName = GetRandomListValue(FemaleMiddleName, rnd);
                     cust.Sex = Sex[j];
                 }
-                cust.BirthDate = GetRandomDt(birthDate);
-                cust.RegistrationDate = GetRandomDt(regDate);
-                i++;
+                cust.BirthDate = GetRandomDt(birthDate, rnd);
+                cust.RegistrationDate = GetRandomDt(regDate, rnd);
+                customers.Add(cust);
             }
-            return custList;
+            foreach (var c in customers)
+            {exampleContext.customers.Add(c); }
+            
+            exampleContext.SaveChanges();
         }
 
         /// <summary>
@@ -192,25 +203,27 @@ namespace ExapleForPoint.Modelling
         /// <param name="customersCount">Количество клиентов</param>
         /// <param name="ordersCount">Количество заказов</param>
         /// <returns></returns>
-        internal List<Orders> SetOders (int customersCount, int ordersCount)
+        public void SetOders (int customersCount, int ordersCount)
         {
-            List<Orders> ordList = new List<Orders>(ordersCount);
+            Orders ord = new Orders();
+            List<Orders> ordList = new List<Orders>();
             Random rnd = new Random();
             DateTime orderDate = new DateTime(2016, 1, 1);
 
-            int i = 0;
-            foreach(var ord in ordList)
+            for (int i = 0; i < ordersCount; i++)
             {
                 ord.ID = i;
                 ord.CustomerID = rnd.Next(customersCount-1);
-                ord.OrderDate = GetRandomDt(orderDate);
+                ord.OrderDate = GetRandomDt(orderDate, rnd);
                 ord.Price = rnd.Next(150, 25000);
-                i++;
+
+                ordList.Add(ord);
+                exampleContext.orders.Add(ord); 
             }
 
-            return ordList;
+            foreach (var c in ordList)
+            { exampleContext.orders.Add(c); }
+            exampleContext.SaveChanges();
         }
-
-
     }
 }

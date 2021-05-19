@@ -50,6 +50,20 @@ namespace ExapleForPoint.Modelling
 
     internal class DataBaseWorker
     {
+        PointExampleContext exampleContext;
+
+        /// <summary>
+        /// Метод создания БД и ORM для дальнейшего применения
+        /// </summary>
+        /// <param name="context"></param>
+        public void ConfigDb(DbParams context)
+        {
+            try { exampleContext = new PointExampleContext(context); }
+            catch (Exception ex)
+            { throw ex; }
+        }
+
+
         /// <summary>
         /// Метод генерации строки подключения
         /// </summary>
@@ -77,6 +91,7 @@ namespace ExapleForPoint.Modelling
         private List<string> MaleFirstName, MaleMiddleName, MaleLastName,
             FemaleFirstName, FemaleMiddleName, FemaleLastName, Sex;
 
+
         public DataBaseFiller()
         {
             MaleFirstName = new List<string> {
@@ -101,6 +116,7 @@ namespace ExapleForPoint.Modelling
 
             Sex = new List<string> { "Мужской", "Женский" };
         }
+
 
         /// <summary>
         /// Метод получения рандомного значения по рандомному индексу в листе

@@ -23,5 +23,6 @@ namespace ExapleForPoint.View
         {
             InitializeComponent();
         }
+
     }
 }

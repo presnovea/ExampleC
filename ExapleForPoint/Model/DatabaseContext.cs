@@ -41,7 +41,7 @@ namespace ExapleForPoint.Modelling
     /// </summary>
     public class PointExampleContext : DbContext
     {
-        PointExampleContext(DbParams dbParams) : base(DataBaseWorker.EFConnectionString(dbParams))
+        public PointExampleContext(DbParams dbParams) : base(DataBaseWorker.EFConnectionString(dbParams))
         { }
         //"name=PointDbString"
 

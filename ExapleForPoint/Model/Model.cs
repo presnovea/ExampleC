@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Security;
 
 namespace ExapleForPoint.Modelling
 {
@@ -19,7 +20,7 @@ namespace ExapleForPoint.Modelling
         private string dataSource;
         private string port;
         private string userID;
-        private string password;
+        private String password;
 
         public string DbName { 
             get { return dbName; }
@@ -40,7 +41,7 @@ namespace ExapleForPoint.Modelling
             get { return userID; }
             set { userID = value; }
         }
-        public string Password
+        public String Password
         {
             get { return password; }
             set { password = value; }

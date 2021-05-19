@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using System.Security;
 
 using ExapleForPoint.Modelling;
 
@@ -54,7 +55,16 @@ namespace ExapleForPoint.ViewModel
                 OnPropertyChanged("DBaseParams");
             }
         }
-        public decimal CustomerValue
+
+        public String SecurePassword
+        {
+            private get { return ""; }
+            set
+            {
+                dbParams.Password = value;
+            }
+        }
+    public decimal CustomerValue
         {
             get { return (int)customerValue; }
             set { customerValue = value;
@@ -94,7 +104,7 @@ namespace ExapleForPoint.ViewModel
             dbParams.Port = "49172";
             dbParams.DbName = "PointDb";
             dbParams.UserID = "sa";
-            dbParams.Password = "default";
+            dbParams.Password = "";
             return dbParams;
         }
 

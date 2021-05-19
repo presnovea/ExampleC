@@ -34,7 +34,7 @@
                 <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,14,0,0" TextWrapping="Wrap" Text="Логин" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="LoginTextBox" Text="{Binding UserID}" HorizontalAlignment="Left" Height="23" Margin="10,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146"/>
                 <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top" Width="120"/>
-                <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Height="23" Width="146"/>
+                <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Height="23" Width="146" PasswordChanged="PasswordBox_PasswordChanged"/>
             </Grid>
         </GroupBox>
         <Button x:Name="button" Command="{Binding ConfigureDBCommand}" Content="Подключиться" Grid.Column="1" HorizontalAlignment="Left" Margin="9.667,145.667,0,0" Width="166" Height="21" VerticalAlignment="Top" Grid.Row="1"/>

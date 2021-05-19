@@ -38,17 +38,17 @@
             </Grid>
         </GroupBox>
         <Button x:Name="button" Command="{Binding ConfigureDBCommand}" Content="Подключиться" Grid.Column="1" HorizontalAlignment="Left" Margin="9.667,145.667,0,0" Width="166" Height="21" VerticalAlignment="Top" Grid.Row="1"/>
-        <Slider x:Name="CustomerSldr" IsEnabled="{Binding ConnectionEnabled}" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" Width="352" Height="18" Maximum="20" Minimum="10" SmallChange="1" Cursor="None" IsTabStop="False" TickFrequency="10"/>
+        <Slider x:Name="CustomerSldr" IsEnabled="{Binding ConnectionEnabled}" Value="{Binding CustomerValue}" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" Width="352" Height="18" Maximum="20" Minimum="10" SmallChange="1"/>
+        <Slider x:Name="OrderSldr" IsEnabled="{Binding ConnectionEnabled}" Value="{Binding OrderValue}" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" Width="352" Height="18" Minimum="1000" Maximum="10000" SmallChange="1"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="10,22,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Height="16" Width="13"/>
         <TextBlock x:Name="textBlock2_Copy" HorizontalAlignment="Left" Margin="162.667,22,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Grid.Column="1" TextAlignment="Right" Height="16" Width="13"/>
-        <TextBlock x:Name="CustomerTb" Text="{Binding ElementName=CustomerSldr, Path=Value}" HorizontalAlignment="Left" Margin="146,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="80" Height="16"/>
+        <TextBlock x:Name="CustomerTb" Text="{Binding CustomerValue}" HorizontalAlignment="Left" Margin="146,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="80" Height="16" TextAlignment="Center"/>
         <TextBlock x:Name="textBlock2_Copy1" HorizontalAlignment="Left" Margin="71,22,0,0" TextWrapping="Wrap" Text="Клиенты" VerticalAlignment="Top" Width="72" Height="16"/>
-        <Slider x:Name="OrderSldr" IsEnabled="{Binding ConnectionEnabled}" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" Width="352" Height="18" Minimum="1000" Maximum="10000" SmallChange="1"/>
         <TextBlock x:Name="textBlock2_Copy2" HorizontalAlignment="Left" Margin="10,66,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="47" Height="16"/>
         <TextBlock x:Name="textBlock2_Copy3" HorizontalAlignment="Left" Margin="117.667,66,0,0" TextWrapping="Wrap" Text="10000" VerticalAlignment="Top" Grid.Column="1" TextAlignment="Right" Width="58" Height="16"/>
-        <TextBlock x:Name="OrderTb" HorizontalAlignment="Left" Margin="146,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="80" Height="16"/>
+        <TextBlock x:Name="OrderTb" Text="{Binding OrderValue}" HorizontalAlignment="Left" Margin="146,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="80" Height="16" TextAlignment="Center"/>
         <TextBlock x:Name="textBlock2_Copy4" HorizontalAlignment="Left" Margin="71,66,0,0" TextWrapping="Wrap" Text="Заказы" VerticalAlignment="Top" Width="72" Height="16"/>
-        <Button x:Name="FillDbButton" Content="Заполнить" Grid.Column="1" HorizontalAlignment="Left" Margin="9.667,116,0,0" VerticalAlignment="Top" Width="166" Height="21"/>
+        <Button x:Name="FillDbButton" IsEnabled="{Binding ConnectionEnabled}" Content="Заполнить" Grid.Column="1" HorizontalAlignment="Left" Margin="9.667,116,0,0" VerticalAlignment="Top" Width="166" Height="21"/>
         <ProgressBar x:Name="ProcessBar" HorizontalAlignment="Left" Height="23" Margin="10,178.667,0,0" Grid.Row="1" VerticalAlignment="Top" Width="352" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="ProcessTb" HorizontalAlignment="Left" Margin="17,181.667,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="15" Width="75"/>
 

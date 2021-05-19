@@ -15,9 +15,11 @@ namespace ExapleForPoint.ViewModel
     class CreatorViewModel : INotifyPropertyChanged
     {
         private DbParams dbParams;
-        private decimal customerValue, orderValue;
+        private decimal customerValue = 10, orderValue = 1000;
+        private bool isSldrEnabled;
 
         private DataBaseWorker dbWorker;
+        private PointExampleContext exampleContext;
 
 
 
@@ -39,6 +41,7 @@ namespace ExapleForPoint.ViewModel
         {
             dbParams = SetDbPrmDefault();
             ConfigureDBCommand = new DelegateCommand(ExecuteConfigureDb, CanExecuteConfigureDb);
+            FillDBCommand = new DelegateCommand(ExecuteFillDB, CanExecuteFillDB);
         }
 
         //---------Геттеры и сеттеры----------------------
@@ -51,18 +54,39 @@ namespace ExapleForPoint.ViewModel
                 OnPropertyChanged("DBaseParams");
             }
         }
-
         public decimal CustomerValue
         {
-            get { return customerValue; }
+            get { return (int)customerValue; }
             set { customerValue = value;
                 OnPropertyChanged("CustomerValue"); }
         }
-            
+        public decimal OrderValue
+        {
+            get { return (int)orderValue; }
+            set
+            { orderValue = value;
+                OnPropertyChanged("OrderValue"); }
+        }
 
-
+        public bool ConnectionEnabled
+        {
+            get {
+                if (dbWorker != null)
+                    return isSldrEnabled = true;
+                else
+                    return isSldrEnabled = false;
+                    }
+            set
+            {   isSldrEnabled = value;
+                OnPropertyChanged("ConnectionEnabled"); }
+        }
 
         //----------Методы--------------------------------
+        /// <summary>
+        /// Метод дефолтного заполнения данными для строки подключения.
+        /// Не обязательный, создан для удобства
+        /// </summary>
+        /// <returns></returns>
         internal DbParams SetDbPrmDefault()
         {
             dbParams = new DbParams();
@@ -74,18 +98,25 @@ namespace ExapleForPoint.ViewModel
             return dbParams;
         }
 
-
-
-        //public ICommand COnfigureDB (DbParams prms)
-        //{
-        //    int i = 0;
-        //}
-
+        /// <summary>
+        /// Метод, реализующий требования интерфейса ICommand.
+        /// Обрабатывает нажатие кнопкуи "Подключить".
+        /// </summary>
         private void ExecuteConfigureDb(object param)
         {
-            var i = dbParams;
+
+            dbWorker = new DataBaseWorker();
+            exampleContext = dbWorker.ConfigDb(dbParams);
+
+            OnPropertyChanged("ConnectionEnabled");
         }
 
+        /// <summary>
+        /// Метод, реализующий требования интерфейса ICommand.
+        /// Реализует проверку возможности выполнения метода ExecuteConfigureDb.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         private bool CanExecuteConfigureDb(object param)
         {
             if (dbParams.DataSource != "" &&
@@ -99,5 +130,25 @@ namespace ExapleForPoint.ViewModel
                 return false;
             }
         }
+
+
+        /// <summary>
+        /// Метод, реализующий требования интерфейса ICommand.
+        /// Обрабатывает нажатие кнопкуи "Заполнить".
+        /// </summary>
+        private void ExecuteFillDB(object param)
+        {
+            OnPropertyChanged("ConnectionEnabled");
+        }
+
+        /// <summary>
+        /// Метод, реализующий требования интерфейса ICommand.
+        /// Реализует проверку возможности выполнения метода ExecuteFillDB.
+        /// </summary>
+        private bool CanExecuteFillDB(object param)
+        {
+                return false;
+        }
+
     }    
 }

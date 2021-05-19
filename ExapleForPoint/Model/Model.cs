@@ -55,10 +55,11 @@ namespace ExapleForPoint.Modelling
         /// <summary>
         /// Метод создания БД и ORM для дальнейшего применения
         /// </summary>
-        /// <param name="context"></param>
-        public void ConfigDb(DbParams context)
+        public PointExampleContext ConfigDb(DbParams context)
         {
-            try { exampleContext = new PointExampleContext(context); }
+            try { exampleContext = new PointExampleContext(context);
+                return exampleContext;
+            }
             catch (Exception ex)
             { throw ex; }
         }

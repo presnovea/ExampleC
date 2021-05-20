@@ -205,20 +205,20 @@ namespace ExapleForPoint.Modelling
         /// <returns></returns>
         public void SetOders (int customersCount, int ordersCount)
         {
-            Orders ord = new Orders();
+            Orders ord;
             List<Orders> ordList = new List<Orders>();
             Random rnd = new Random();
             DateTime orderDate = new DateTime(2016, 1, 1);
 
             for (int i = 0; i < ordersCount; i++)
             {
+                ord = new Orders();
                 ord.ID = i;
-                ord.CustomerID = rnd.Next(customersCount-1);
+                ord.CustomerID = rnd.Next(customersCount);
                 ord.OrderDate = GetRandomDt(orderDate, rnd);
                 ord.Price = rnd.Next(150, 25000);
 
-                ordList.Add(ord);
-                exampleContext.orders.Add(ord); 
+                ordList.Add(ord); 
             }
 
             foreach (var c in ordList)

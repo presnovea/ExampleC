@@ -83,6 +83,7 @@
     <Compile Include="ViewModel\CreatorViewModel.cs" />
     <Compile Include="ViewModel\DelegateClassViewModel.cs" />
     <Compile Include="ViewModel\ObserverViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelInterfaces.cs" />
     <Compile Include="View\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>

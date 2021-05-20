@@ -17,13 +17,13 @@ namespace ExapleForPoint.ViewModel
     {
         //--------Объявление свойств и событий----------
         private DbParams dbParams;
-        private int customerValue = 10, orderValue = 1000;
-        private bool isSldrEnabled;
-
         private DataBaseWorker dbWorker;
         internal  PointExampleContext exampleContext;
         private DataBaseFiller dbFiller;
+        private ISessionContext currentSessionContext;
 
+        private int customerValue = 10, orderValue = 1000;
+        private bool isSldrEnabled;
 
 
         public IDelegateCommand ConfigureDBCommand { protected set; get; }
@@ -39,14 +39,15 @@ namespace ExapleForPoint.ViewModel
         /// <summary>
         /// Конструктор класса
         /// </summary>
-        public CreatorViewModel()
+        public CreatorViewModel(ISessionContext sessionContext)
         {
+            currentSessionContext = sessionContext;
             dbParams = SetDbPrmDefault();
             ConfigureDBCommand = new DelegateCommand(ExecuteConfigureDb, CanExecuteConfigureDb);
             FillDBCommand = new DelegateCommand(ExecuteFillDB, CanExecuteFillDB);
         }
 
-        //---------Геттеры и сеттеры----------------------
+        //--------- Геттеры и сеттеры ----------------------
         public DbParams DBaseParams
         {
             get { return dbParams; }
@@ -152,7 +153,9 @@ namespace ExapleForPoint.ViewModel
             dbFiller = new DataBaseFiller(exampleContext);
             dbFiller.SetCustomers(CustomerValue);
             dbFiller.SetOders(CustomerValue, OrderValue);
-            ObserverViewModel.exampleContext = exampleContext;
+            //ObserverViewModel.ExampleContext = exampleContext;
+
+            currentSessionContext.SessionExampleContext = exampleContext;
             OnPropertyChanged("ConnectionEnabled");
         }
 

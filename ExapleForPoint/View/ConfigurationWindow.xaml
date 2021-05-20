@@ -9,9 +9,6 @@
         x:Class="ExapleForPoint.View.ConfigurationWindow"
         mc:Ignorable="d"
         Title="Конфигуратор" Height="387.602" Width="378.544">
-    <Window.DataContext>
-        <ViewModel:CreatorViewModel/>
-    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="145*"/>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using ExapleForPoint.Modelling;
+using ExapleForPoint.ViewModel;
 
 namespace ExapleForPoint
 {
@@ -15,6 +16,8 @@ namespace ExapleForPoint
     /// </summary>
     public partial class App : Application
     {
-        public static PointExampleContext MainExampleContext;
+        public static ISessionContext sessionContext = new SessionContext();
+        public App()
+        { }
     }
 }

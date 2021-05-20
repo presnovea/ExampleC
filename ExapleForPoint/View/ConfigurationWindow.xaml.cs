@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using ExapleForPoint.ViewModel;
+
 namespace ExapleForPoint.View
 {
     /// <summary>
@@ -21,6 +23,7 @@ namespace ExapleForPoint.View
     {
         public ConfigurationWindow()
         {
+            DataContext = new CreatorViewModel(App.sessionContext);
             InitializeComponent();
         }
 

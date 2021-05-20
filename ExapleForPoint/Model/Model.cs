@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Security;
 
+using ExapleForPoint.ViewModel;
+
 namespace ExapleForPoint.Modelling
 {
     /// <summary>
@@ -51,19 +53,45 @@ namespace ExapleForPoint.Modelling
 
     }
 
+    /// <summary>
+    /// Класс абстрагирующий основные методы работы с БД  через ORM
+    /// (создание, конфигурирование и удаление)
+    /// </summary>
     internal class DataBaseWorker
     {
         PointExampleContext exampleContext;
 
         /// <summary>
-        /// Метод создания БД и ORM для дальнейшего применения
+        /// Метод создания  ORM и БД для дальнейшего применения
         /// </summary>
         public PointExampleContext ConfigDb(DbParams context)
         {
-            try { exampleContext = new PointExampleContext(context);
-
+            try { 
+                exampleContext = new PointExampleContext(context);
+                ClearDB(exampleContext);
                 exampleContext.SaveChanges();
                 return exampleContext;
+            }
+            catch (Exception ex)
+            { throw ex; }
+        }
+
+        /// <summary>
+        /// Метод очистки данных из ORM и БД
+        /// </summary>
+        /// <param name="context"></param>
+        private void ClearDB (PointExampleContext context)
+        {
+            try
+            {
+                if (context.customers.Count() > 0)
+                {
+                    foreach (var c in context.customers)
+                    { context.customers.Remove(c); }
+
+                    foreach (var o in context.orders)
+                    { context.orders.Remove(o); }
+                }
             }
             catch (Exception ex)
             { throw ex; }
@@ -89,7 +117,7 @@ namespace ExapleForPoint.Modelling
     }
 
     /// <summary>
-    /// Конструктор, определяющий основные элементы класса
+    /// Класс, содержащий методы заполнения БД
     /// </summary>
     internal class DataBaseFiller
     {
@@ -97,8 +125,12 @@ namespace ExapleForPoint.Modelling
             FemaleFirstName, FemaleMiddleName, FemaleLastName, Sex;
 
         private PointExampleContext exampleContext;
+     
 
-
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
+        /// <param name="x"></param>
         public DataBaseFiller(PointExampleContext x)
         {
             exampleContext = x;
@@ -165,6 +197,7 @@ namespace ExapleForPoint.Modelling
             List<Customers> customers =  new List<Customers>();
             DateTime birthDate = new DateTime(1950, 1, 1);
             DateTime regDate = new DateTime(2015, 1, 1);
+            int p = 0;
 
             for (int i = 0; i < customersCount; i++)
             {
@@ -192,7 +225,9 @@ namespace ExapleForPoint.Modelling
                 customers.Add(cust);
             }
             foreach (var c in customers)
-            {exampleContext.customers.Add(c); }
+            {
+                exampleContext.customers.Add(c);
+            }
             
             exampleContext.SaveChanges();
         }

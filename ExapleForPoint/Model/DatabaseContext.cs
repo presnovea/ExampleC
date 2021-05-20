@@ -57,16 +57,20 @@ namespace ExapleForPoint.Modelling
         {
             List<Orders> orderByCust = new List<Orders>();
 
-            var queryRes =
-                from num in orders
-                where num.CustomerID == customerID
-                select num;
-            foreach (var num in queryRes)
+            try
             {
-                orderByCust.Add(num);
-            }
-
+                var queryRes =
+                    from num in orders
+                    where num.CustomerID == customerID
+                    select num;
+                foreach (var num in queryRes)
+                {
+                    orderByCust.Add(num);
+                }
             return orderByCust;
+            }
+            catch(Exception ex) { throw ex; }
+
         }
 
     }

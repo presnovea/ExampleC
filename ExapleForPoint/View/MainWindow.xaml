@@ -6,16 +6,16 @@
         xmlns:local="clr-namespace:ExapleForPoint.View"
         xmlns:ViewModel="clr-namespace:ExapleForPoint.ViewModel" x:Class="ExapleForPoint.View.MainWindow"
         mc:Ignorable="d"
-        Title="Обозреватель" Height="386.179" Width="719.042">
+        Title="Обозреватель" Height="386.179" Width="1014.203">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400*"/>
-            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="496*"/>
+            <ColumnDefinition Width="215*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="CustomersGrid" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedItem}" Margin="10,36,9.667,39.667"/>
-        <DataGrid x:Name="OrdersGrid" ItemsSource="{Binding Orders}" Grid.Column="1" Margin="10.333,36,9.667,39.667"/>
-        <Button x:Name="ConfigButton" Content="Конфигурация БД" Grid.Column="1" Margin="0,0,9.667,5.667" Height="26" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="179" Click="ConfigButton_Click"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,15,0,0" TextWrapping="Wrap" Text="Клиенты" VerticalAlignment="Top" Width="148"/>
-        <TextBlock x:Name="textBlock1" Grid.Column="1" HorizontalAlignment="Left" Margin="10.333,15,0,0" TextWrapping="Wrap" Text="Заказы" VerticalAlignment="Top" Width="152"/>
+        <DataGrid x:Name="CustomersGrid" ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedItem}" Margin="10,36,10,41.333"/>
+        <DataGrid x:Name="OrdersGrid" ItemsSource="{Binding Orders}" Grid.Column="1" Margin="10,36,9.333,10.333"/>
+        <Button x:Name="ConfigButton" Content="Конфигурация БД" Margin="0,0,513,10.333" Height="26" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="179" Click="ConfigButton_Click"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,15,0,0" TextWrapping="Wrap" Text="Клиенты" VerticalAlignment="Top" Width="148" Height="16"/>
+        <TextBlock x:Name="textBlock1" Grid.Column="1" HorizontalAlignment="Left" Margin="10,15,0,0" TextWrapping="Wrap" Text="Заказы" VerticalAlignment="Top" Width="152" Height="16"/>
     </Grid>
 </Window>

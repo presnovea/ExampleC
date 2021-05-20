@@ -26,9 +26,11 @@ namespace ExapleForPoint.View
         
         public MainWindow()
         {
+            //Присвоение контекста данных для окна
             DataContext = new ObserverViewModel(App.sessionContext);
             InitializeComponent();
         }
+
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)
         {

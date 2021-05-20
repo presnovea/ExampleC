@@ -10,6 +10,12 @@ using ExapleForPoint.Modelling;
 
 namespace ExapleForPoint.ViewModel
 {
+    /// <summary>
+    /// Класс, реализующий интерфейс IDelegateCommand
+    /// С помощью делегатов абстрагирует выполнение необходимых методов Execute, AlwaysCanExecute и CanExecute.
+    /// Дает возможность создания различных команд для ViewModel. 
+    /// В данном случае нужен для назначения поведения кнопок в модели MVVM
+    /// </summary>
     public class DelegateCommand : IDelegateCommand
     {
         Action<object> execute;
@@ -17,6 +23,9 @@ namespace ExapleForPoint.ViewModel
 
         public event EventHandler CanExecuteChanged;
 
+        /// <summary>
+        /// Констркутор класса с обеспечением проверки возможности выполнения метода Execute 
+        /// </summary>
         public DelegateCommand(Action<object> execute, Func<object, bool> canExecute)
         {
             this.execute = execute;
@@ -24,7 +33,7 @@ namespace ExapleForPoint.ViewModel
         }
 
         /// <summary>
-        /// Класс, абстрагирующий реализацию ICommand. Дает возможность создания различных команд для модели представления
+        /// ККонстркутор класса без обеспечения проверки возможности выполнения метода Execute
         /// </summary>
         /// <param name="execute"></param>
         public DelegateCommand(Action<object> execute)

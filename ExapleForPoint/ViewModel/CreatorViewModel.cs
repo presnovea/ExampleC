@@ -13,9 +13,12 @@ using ExapleForPoint.Modelling;
 
 namespace ExapleForPoint.ViewModel
 {
+    /// <summary>
+    /// Модель-представление окна Конфигуратора 
+    /// </summary>
     class CreatorViewModel : INotifyPropertyChanged
     {
-        //--------Объявление свойств и событий----------
+        //--------Объявление свойств, делегатов и событий----------
         private DbParams dbParams;
         private DataBaseWorker dbWorker;
         internal  PointExampleContext exampleContext;
@@ -23,8 +26,9 @@ namespace ExapleForPoint.ViewModel
         private ISessionContext currentSessionContext;
 
         private int customerValue = 10, orderValue = 1000;
-        private bool isSldrEnabled;
-
+        private bool isSldrEnabled, connInProcess;
+        private string processBox;
+        
 
         public IDelegateCommand ConfigureDBCommand { protected set; get; }
         public IDelegateCommand FillDBCommand { protected set; get; }
@@ -45,9 +49,10 @@ namespace ExapleForPoint.ViewModel
             dbParams = SetDbPrmDefault();
             ConfigureDBCommand = new DelegateCommand(ExecuteConfigureDb, CanExecuteConfigureDb);
             FillDBCommand = new DelegateCommand(ExecuteFillDB, CanExecuteFillDB);
+            connInProcess = true;
         }
 
-        //--------- Геттеры и сеттеры ----------------------
+        //--------- Свойства, к которым происходит привязка View ----------------------
         public DbParams DBaseParams
         {
             get { return dbParams; }
@@ -66,7 +71,7 @@ namespace ExapleForPoint.ViewModel
                 dbParams.Password = value;
             }
         }
-    public int CustomerValue
+        public int CustomerValue
         {
             get { return (int)customerValue; }
             set { customerValue = value;
@@ -92,6 +97,30 @@ namespace ExapleForPoint.ViewModel
             {   isSldrEnabled = value;
                 OnPropertyChanged("ConnectionEnabled"); }
         }
+        public bool ConnectionInProcess
+        {
+            get
+            {return connInProcess;}
+            set
+            {
+                connInProcess = !value;
+                OnPropertyChanged("ConnectionInProcess");
+            }
+        }
+        
+        public string ProcessBox
+        {
+            get
+            { return processBox; }
+            set
+            {
+                processBox = value;
+                OnPropertyChanged("ProcessBox");
+            }
+        }
+
+        
+
 
         //----------Методы--------------------------------
         /// <summary>
@@ -103,7 +132,7 @@ namespace ExapleForPoint.ViewModel
         {
             dbParams = new DbParams();
             dbParams.DataSource = "127.0.0.1";
-            dbParams.Port = "49172";
+            dbParams.Port = "4567";
             dbParams.DbName = "PointDb";
             dbParams.UserID = "sa";
             dbParams.Password = "";
@@ -112,22 +141,25 @@ namespace ExapleForPoint.ViewModel
 
         /// <summary>
         /// Метод, реализующий требования интерфейса ICommand.
-        /// Обрабатывает нажатие кнопкуи "Подключить".
+        /// Обрабатывает нажатие кнопки "Подключить".
         /// </summary>
-        private void ExecuteConfigureDb(object param)
+        private async void ExecuteConfigureDb(object param)
         {
-
+            ConnectionInProcess = true;
+            ProcessBox = "Установка соединения с БД";
             dbWorker = new DataBaseWorker();
-            exampleContext = dbWorker.ConfigDb(dbParams);
+            try { await Task.Run(() => { exampleContext = dbWorker.ConfigDb(dbParams); }); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
 
             OnPropertyChanged("ConnectionEnabled");
+            ConnectionInProcess = false;
+            ProcessBox = "Соединение с БД установлено";
         }
 
         /// <summary>
         /// Метод, реализующий требования интерфейса ICommand.
         /// Реализует проверку возможности выполнения метода ExecuteConfigureDb.
         /// </summary>
-        /// <param name="param"></param>
         /// <returns></returns>
         private bool CanExecuteConfigureDb(object param)
         {
@@ -146,17 +178,26 @@ namespace ExapleForPoint.ViewModel
 
         /// <summary>
         /// Метод, реализующий требования интерфейса ICommand.
-        /// Обрабатывает нажатие кнопкуи "Заполнить".
+        /// Обрабатывает нажатие кнопки "Заполнить".
         /// </summary>
-        private void ExecuteFillDB(object param)
+        private async void ExecuteFillDB(object param)
         {
+            ProcessBox = "Наполнение БД...";
             dbFiller = new DataBaseFiller(exampleContext);
-            dbFiller.SetCustomers(CustomerValue);
-            dbFiller.SetOders(CustomerValue, OrderValue);
+            try
+            {
+                await Task.Run(() =>
+                 {
+                     dbFiller.SetCustomers(CustomerValue);
+                     dbFiller.SetOders(CustomerValue, OrderValue);
+                 });
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
             //ObserverViewModel.ExampleContext = exampleContext;
 
             currentSessionContext.SessionExampleContext = exampleContext;
             OnPropertyChanged("ConnectionEnabled");
+            ProcessBox = "БД наполнена данными";
         }
 
         /// <summary>
@@ -165,6 +206,8 @@ namespace ExapleForPoint.ViewModel
         /// </summary>
         private bool CanExecuteFillDB(object param)
         {
+            //Должна присутствовать проверка полей количества клиентов и заказов.
+            //В примере есть начальное значение, в проверке нет необходимости.
                 return true;
         }
 

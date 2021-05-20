@@ -12,9 +12,12 @@ using ExapleForPoint.Modelling;
 
 namespace ExapleForPoint.ViewModel
 {
+    /// <summary>
+    /// Модель-представление окна Обозревателя 
+    /// </summary>
     public class ObserverViewModel : INotifyPropertyChanged
     {
-        //--------Объявление свойств и событий--------------------------------------------------------------
+        //--------Объявление свойств, делегатов и событий-----------------------------
         private PointExampleContext exampleContext;
         private ISessionContext currentSessionContext;
 
@@ -40,7 +43,7 @@ namespace ExapleForPoint.ViewModel
 
 
 
-        //---------Геттеры и сеттеры------------------------------------------------------------------------
+        //---------Свойства, к которым происходит привязка View--------------------------
         public List<Customers> Customers
         {
             get { return customers; }
@@ -69,16 +72,16 @@ namespace ExapleForPoint.ViewModel
             set
             {
                 selectedItem = value;
-                Orders = exampleContext.GetOrdersByCustomer(selectedItem.ID);
+                GetOrdersByCustomer(ExampleContext);
                 OnPropertyChanged("SelectedItem");
             }
         }
 
 
 
-        //----------Методы----------------------------------------------------------------------------------
+        //----------Методы------------------------------------------------------------
         /// <summary>
-        /// Данный обработчик получает обновленный контекст сессии приложения 
+        /// Данный обработчик получает обновленный контекст сессии всего приложения 
         /// и инициализирует общее обновление данных в представлении
         /// </summary>
         private void OnSessionContextPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -88,6 +91,19 @@ namespace ExapleForPoint.ViewModel
                 this.exampleContext = currentSessionContext.SessionExampleContext;
                 Customers = exampleContext.customers.ToList<Customers>();
             }
+        }
+
+        /// <summary>
+        /// Асинхронный метод получения выборки заказов относительно Заказчика
+        /// </summary>
+        /// <param name="context"></param>
+        private async void GetOrdersByCustomer (PointExampleContext context)
+        {
+            await Task.Run(() =>
+           {
+               try { Orders = exampleContext.GetOrdersByCustomer(selectedItem.ID); }
+               catch (Exception ex) { MessageBox.Show(ex.Message); }
+           });
         }
     }
 }

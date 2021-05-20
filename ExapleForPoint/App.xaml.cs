@@ -16,6 +16,9 @@ namespace ExapleForPoint
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// Только для примера. Статический объект, хранящий контекст сессии EF для работы с данными.
+        /// </summary>
         public static ISessionContext sessionContext = new SessionContext();
         public App()
         { }

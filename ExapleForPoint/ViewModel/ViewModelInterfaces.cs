@@ -15,7 +15,8 @@ namespace ExapleForPoint.ViewModel
 {
     /// <summary>
     /// Класс, определющий контекст сессии.
-    /// Хранит "общие" объекты, используемые View-model совместно.
+    /// Определяет "общие" объекты, используемые различными View-model совместно,
+    /// а также событие их изменения.
     /// </summary>
     public class SessionContext : ISessionContext
     {
@@ -34,7 +35,7 @@ namespace ExapleForPoint.ViewModel
     }
 
     /// <summary>
-    /// Интерфейс, определяющий контекст общей сессии
+    /// Интерфейс, определяющий контекст  сессии
     /// </summary>
     public interface ISessionContext : INotifyPropertyChanged
     {

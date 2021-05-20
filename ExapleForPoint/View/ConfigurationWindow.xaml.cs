@@ -23,9 +23,16 @@ namespace ExapleForPoint.View
     {
         public ConfigurationWindow()
         {
+            //Присвоение контекста данных для окна
             DataContext = new CreatorViewModel(App.sessionContext);
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Обработчик события смены пароля PasswordBox
+        /// В реальной жизни так делать нельзя и необходимо использовать SecureString, но в ConnectuionString 
+        /// пароль все равно входит типом String
+        /// </summary>
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
